@@ -21,8 +21,17 @@ const nextConfig = {
           },
           {
             key: "Content-Security-Policy",
-            value:
-              "default-src 'self'; script-src 'self'; object-src 'none'; frame-ancestors 'none';",
+            value: `
+              default-src 'self';
+              style-src 'self' 'unsafe-inline';
+              font-src 'self' data:;
+              script-src 'self' 'unsafe-eval';
+              img-src 'self' data:;
+              connect-src 'self';
+              frame-ancestors 'none';
+            `
+              .replace(/\s{2,}/g, " ")
+              .trim(),
           },
         ],
       },
