@@ -23,3 +23,8 @@ export interface ButtonProps {
   icon?: string;
   value?: string;
 }
+
+export interface DropdownProps {
+  values: string[];
+  onDelete: () => void;
+}

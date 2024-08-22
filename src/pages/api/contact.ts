@@ -153,14 +153,14 @@ export default async function handler(
 
       case "DELETE":
         try {
-          const { id } = body;
-          const { error } = idSchema.validate({ id });
+          const { id } = query; // Query paraméterből olvassuk ki az id-t
+          const { error } = idSchema.validate({ id: Number(id) });
           if (error) {
             return res.status(400).json({ error: error.details[0].message });
           }
 
           await prisma.contact.delete({
-            where: { id },
+            where: { id: Number(id) },
           });
           res.status(200).json({ message: "Contact deleted successfully" });
         } catch (error) {

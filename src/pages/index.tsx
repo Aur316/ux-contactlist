@@ -26,6 +26,12 @@ export default function Home() {
     getContacts();
   }, []);
 
+  const handleDelete = (id: number) => {
+    setContacts((prevContacts) =>
+      prevContacts ? prevContacts.filter((contact) => contact.id !== id) : null
+    );
+  };
+
   if (error) {
     return <p>{error}</p>;
   }
@@ -42,9 +48,11 @@ export default function Home() {
         contacts.map((contact) => (
           <Contact
             key={contact.id}
+            id={contact.id}
             name={contact.name}
             phone={contact.phone}
             src={contact.img || "/image/Default.png"}
+            onDelete={handleDelete}
           />
         ))
       ) : (
