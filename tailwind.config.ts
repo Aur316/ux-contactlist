@@ -28,6 +28,10 @@ const config: Config = {
         secondary: "rgba(255, 255, 255, 0.56)",
         disabled: "rgba(255, 255, 255, 0.32)",
       },
+      fontFamily: {
+        glysa: ["Glysa", "sans-serif"],
+        lexend: ["Lexend", "sans-serif"],
+      },
     },
   },
   plugins: [],
