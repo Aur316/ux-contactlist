@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient, Contact } from "@prisma/client";
 import Joi from "joi";
+import { LRUCache } from "lru-cache";
 
 const prisma = new PrismaClient();
 
@@ -21,10 +22,31 @@ const idSchema = Joi.object({
   id: Joi.number().integer().required(),
 });
 
+const rateLimiter = new LRUCache<string, number>({
+  max: 100,
+  ttl: 60 * 1000,
+});
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+  if (!ip) {
+    return res.status(400).json({ error: "Unable to determine IP address" });
+  }
+
+  const requestCount = rateLimiter.get(ip as string) || 0;
+
+  if (requestCount >= 10) {
+    return res
+      .status(429)
+      .json({ error: "Too many requests, please try again later." });
+  }
+
+  rateLimiter.set(ip as string, requestCount + 1);
+
   const { method, query, body } = req;
 
   try {
