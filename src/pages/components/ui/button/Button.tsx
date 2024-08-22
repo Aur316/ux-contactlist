@@ -13,6 +13,7 @@ export default function Button(props: ButtonProps) {
 
   return (
     <button
+      onClick={props.onClick}
       className={`${width} ${baseStyles} ${props.radius} ${props.background} ${props.color}`}
     >
       {props.text !== "text" && <img src={props.icon} alt="icon" />}

@@ -2,8 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient, Contact } from "@prisma/client";
 import Joi from "joi";
 import { LRUCache } from "lru-cache";
+import AWS from "aws-sdk";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
+const s3 = new AWS.S3();
 
 type Data = {
   message?: string;
@@ -16,6 +19,7 @@ const contactSchema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
   email: Joi.string().email().required(),
   phone: Joi.string().min(7).max(15).required(),
+  imageUrl: Joi.string().uri().optional(),
 });
 
 const idSchema = Joi.object({
@@ -26,6 +30,18 @@ const rateLimiter = new LRUCache<string, number>({
   max: 100,
   ttl: 60 * 1000,
 });
+
+async function uploadImageToS3(file: Buffer, fileName: string) {
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME!,
+    Key: fileName,
+    Body: file,
+    ACL: "public-read",
+  };
+
+  const data = await s3.upload(params).promise();
+  return data.Location;
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -82,17 +98,24 @@ export default async function handler(
 
       case "POST":
         try {
-          const { error } = contactSchema.validate(body);
+          const { name, email, phone, imageUrl } = body;
+
+          const { error } = contactSchema.validate({
+            name,
+            email,
+            phone,
+            imageUrl,
+          });
           if (error) {
             return res.status(400).json({ error: error.details[0].message });
           }
 
-          const { name, email, phone } = body;
           const newContact = await prisma.contact.create({
             data: {
               name,
               email,
               phone,
+              imageUrl,
             },
           });
           res.status(201).json({
@@ -107,7 +130,7 @@ export default async function handler(
 
       case "PUT":
         try {
-          const { id, name, email, phone } = body;
+          const { id, name, email, phone, imageUrl } = body;
 
           const { error: idError } = idSchema.validate({ id });
           if (idError) {
@@ -118,9 +141,15 @@ export default async function handler(
             name: contactSchema.extract("name").optional(),
             email: contactSchema.extract("email").optional(),
             phone: contactSchema.extract("phone").optional(),
+            imageUrl: contactSchema.extract("imageUrl").optional(),
           });
 
-          const { error } = updateSchema.validate({ name, email, phone });
+          const { error } = updateSchema.validate({
+            name,
+            email,
+            phone,
+            imageUrl,
+          });
           if (error) {
             return res.status(400).json({ error: error.details[0].message });
           }
@@ -129,11 +158,12 @@ export default async function handler(
           if (name) dataToUpdate.name = name;
           if (email) dataToUpdate.email = email;
           if (phone) dataToUpdate.phone = phone;
+          if (imageUrl) dataToUpdate.imageUrl = imageUrl;
 
-          if (Object.keys(dataToUpdate).length === 0) {
-            return res.status(400).json({
-              error: "At least one field must be provided for update",
-            });
+          if (body.imageFile) {
+            const buffer = Buffer.from(body.imageFile, "base64");
+            const fileName = `images/${uuidv4()}.png`;
+            dataToUpdate.imageUrl = await uploadImageToS3(buffer, fileName);
           }
 
           const updatedContact = await prisma.contact.update({
@@ -153,7 +183,7 @@ export default async function handler(
 
       case "DELETE":
         try {
-          const { id } = query; // Query paraméterből olvassuk ki az id-t
+          const { id } = query;
           const { error } = idSchema.validate({ id: Number(id) });
           if (error) {
             return res.status(400).json({ error: error.details[0].message });

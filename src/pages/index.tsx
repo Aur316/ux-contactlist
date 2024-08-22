@@ -15,6 +15,7 @@ export default function Home() {
     const getContacts = async () => {
       try {
         const response = await axios.get("/api/contact");
+        console.log(response, "res");
         setContacts(response.data.contacts || []);
         setLoading(false);
       } catch (error) {
@@ -52,7 +53,7 @@ export default function Home() {
             id={contact.id}
             name={contact.name}
             phone={contact.phone}
-            src={contact.img || "/image/Default.png"}
+            imageUrl={contact.imageUrl || "/image/Default.png"}
             onDelete={handleDelete}
           />
         ))

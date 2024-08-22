@@ -3,7 +3,7 @@ export type ContactType = {
   name: string;
   email: string;
   phone: number;
-  img: string;
+  imageUrl: string;
 };
 
 export interface NameNumberProps {
@@ -12,7 +12,7 @@ export interface NameNumberProps {
 }
 
 export interface ImageIconProps {
-  src: string;
+  imageUrl: string;
 }
 
 export interface ButtonProps {
@@ -22,6 +22,7 @@ export interface ButtonProps {
   text: "double" | "text" | "icon";
   icon?: string;
   value?: string;
+  onClick?: any;
 }
 
 export interface DropdownProps {

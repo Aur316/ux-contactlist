@@ -14,11 +14,11 @@ export default function Contact({
   id,
   name,
   phone,
-  src,
+  imageUrl,
   onDelete,
 }: ContactProps) {
   const [visibleDropDown, setVisibleDropDown] = useState<boolean>(false);
-
+  console.log(imageUrl, "imageURL111");
   const handleDelete = async () => {
     try {
       await deleteContact(id);
@@ -30,7 +30,7 @@ export default function Contact({
 
   return (
     <div className="relative flex flex-row gap-1">
-      <ImageIcon src={src} />
+      <ImageIcon imageUrl={imageUrl} />
       <NameNumber name={name} phone={phone} />
       <img
         src="/icons/More.png"
