@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ContactType } from "@/types";
-import Contact from "./component/Contact";
+import Contact from "./components/Contact";
+import Button from "./components/ui/button/Button";
 
 export default function Home() {
   const [contacts, setContacts] = useState<ContactType[] | null>(null);
@@ -33,19 +34,44 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-G-100 text-primary p-4 flex flex-col gap-2">
+    <div
+      id="contactList"
+      className="bg-G-100 text-primary p-4 flex flex-col gap-2"
+    >
       {contacts ? (
         contacts.map((contact) => (
           <Contact
             key={contact.id}
             name={contact.name}
             phone={contact.phone}
-            src="/image/Default.png"
+            src={contact.img || "/image/Default.png"}
           />
         ))
       ) : (
         <p>No contacts found</p>
       )}
+      <Button
+        radius="rounded-[15px]"
+        color="text-secondary"
+        background="bg-amber-400"
+        text="double"
+        icon="/icons/Add.png"
+        value="Add new"
+      />
+      <Button
+        radius=""
+        color=""
+        background="bg-amber-400"
+        text="text"
+        value="Add new"
+      />
+      <Button
+        radius=""
+        color=""
+        background="bg-amber-400"
+        text="icon"
+        icon="/icons/Add.png"
+      />
     </div>
   );
 }

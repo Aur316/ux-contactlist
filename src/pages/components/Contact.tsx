@@ -1,6 +1,6 @@
 import { ImageIconProps, NameNumberProps } from "@/types";
-import ImageIcon from "./ImageIcon";
-import NameNumber from "./NameNumber";
+import ImageIcon from "./contactComponents/ImageIcon";
+import NameNumber from "./contactComponents/NameNumber";
 
 interface ContactProps extends NameNumberProps, ImageIconProps {}
 
