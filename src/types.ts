@@ -16,9 +16,9 @@ export interface ImageIconProps {
 }
 
 export interface ButtonProps {
-  radius: string;
+  radius?: string;
   color: string;
-  background: string;
+  background?: string;
   text: "double" | "text" | "icon";
   icon?: string;
   value?: string;

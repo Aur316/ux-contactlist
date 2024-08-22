@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { deleteContact } from "@/functions"; // Globális törlési funkció importálása
+import { deleteContact } from "@/functions";
 import { ImageIconProps, NameNumberProps } from "@/types";
 import ImageIcon from "./contactComponents/ImageIcon";
 import NameNumber from "./contactComponents/NameNumber";
 import Dropdown from "./ui/dropdown/Dropdown";
 
 interface ContactProps extends NameNumberProps, ImageIconProps {
-  id: number; // A kontakt azonosítója a törléshez
-  onDelete: (id: number) => void; // Callback a sikeres törlés után
+  id: number;
+  onDelete: (id: number) => void;
 }
 
 export default function Contact({
@@ -21,8 +21,8 @@ export default function Contact({
 
   const handleDelete = async () => {
     try {
-      await deleteContact(id); // Törlési funkció meghívása
-      onDelete(id); // Callback meghívása a szülő komponensben
+      await deleteContact(id);
+      onDelete(id);
     } catch (error) {
       console.error("Error deleting contact:", error);
     }
@@ -43,7 +43,7 @@ export default function Contact({
       {visibleDropDown && (
         <Dropdown
           values={["Edit", "Favourite", "Remove"]}
-          onDelete={handleDelete} // Törlési funkció átadása a Dropdown komponensnek
+          onDelete={handleDelete}
         />
       )}
     </div>

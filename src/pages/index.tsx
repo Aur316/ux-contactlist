@@ -3,6 +3,7 @@ import axios from "axios";
 import { ContactType } from "@/types";
 import Contact from "./components/Contact";
 import Button from "./components/ui/button/Button";
+import ContactForm from "./components/ui/ContactForm";
 
 export default function Home() {
   const [contacts, setContacts] = useState<ContactType[] | null>(null);
@@ -66,13 +67,7 @@ export default function Home() {
         icon="/icons/Add.png"
         value="Add new"
       />
-      <Button
-        radius=""
-        color=""
-        background="bg-amber-400"
-        text="text"
-        value="Add new"
-      />
+
       <Button
         radius=""
         color=""
@@ -80,6 +75,7 @@ export default function Home() {
         text="icon"
         icon="/icons/Add.png"
       />
+      <ContactForm />
     </div>
   );
 }
