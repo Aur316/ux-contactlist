@@ -12,6 +12,5 @@ model Contact {
   name    String
   email   String
   phone   String
-  
   imageUrl String?  
 }
