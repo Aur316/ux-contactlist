@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Contact from "./components/Contact";
 import ContactForm from "./components/ui/ContactForm";
-import { useStore } from "./context/store";
+import { useStore } from "../context/store";
 import Nav from "./components/Nav";
 import Loader from "./components/ui/loader/Loader";
 import { AnimatePresence, motion } from "framer-motion";

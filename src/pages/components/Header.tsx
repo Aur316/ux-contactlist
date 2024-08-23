@@ -1,4 +1,4 @@
-import { useStore } from "../context/store";
+import { useStore } from "../../context/store";
 import ImageIcon from "./contactComponents/ImageIcon";
 import Button from "./ui/button/Button";
 

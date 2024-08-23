@@ -3,7 +3,7 @@ import Input from "./input/Input";
 import Button from "./button/Button";
 import axios from "axios";
 import ImageIcon from "../contactComponents/ImageIcon";
-import { useStore } from "@/pages/context/store";
+import { useStore } from "@/context/store";
 import Loader from "./loader/Loader";
 
 export default function AddContactForm() {

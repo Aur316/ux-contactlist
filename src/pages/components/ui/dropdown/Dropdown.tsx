@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { DropdownProps } from "@/types";
-import { useStore } from "@/pages/context/store";
+import { useStore } from "@/context/store";
 
 export default function Dropdown({
   values,
