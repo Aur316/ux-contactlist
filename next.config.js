@@ -26,7 +26,7 @@ const nextConfig = {
               style-src 'self' 'unsafe-inline';
               font-src 'self' data:;
               script-src 'self' 'unsafe-eval';
-              img-src 'self' data: https://ux-studio-task.s3.eu-north-1.amazonaws.com;
+              img-src 'self' data: https://ux-studio-task.s3.eu-north-1.amazonaws.com blob:;
               connect-src 'self';
               frame-ancestors 'none';
             `

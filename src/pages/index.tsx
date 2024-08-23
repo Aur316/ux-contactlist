@@ -60,7 +60,7 @@ export default function Home() {
       ) : (
         <p>No contacts found</p>
       )}
-      <Button
+      {/* <Button
         radius="rounded-[15px]"
         color="text-secondary"
         background="bg-amber-400"
@@ -75,7 +75,7 @@ export default function Home() {
         background="bg-amber-400"
         text="icon"
         icon="/icons/Add.png"
-      />
+      /> */}
       <ContactForm />
     </div>
   );

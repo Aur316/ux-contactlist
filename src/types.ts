@@ -13,16 +13,18 @@ export interface NameNumberProps {
 
 export interface ImageIconProps {
   imageUrl: string;
+  className?: string;
 }
 
 export interface ButtonProps {
   radius?: string;
-  color: string;
+  color?: string;
   background?: string;
   text: "double" | "text" | "icon";
   icon?: string;
   value?: string;
   onClick?: any;
+  className?: string;
 }
 
 export interface DropdownProps {

@@ -13,7 +13,7 @@ export default function InputField({
   placeholder,
   value,
   onChange,
-  type = "text",
+  type,
 }: InputFieldProps) {
   return (
     <div className="flex flex-col gap-1">
@@ -23,7 +23,7 @@ export default function InputField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="bg-G-80 text-primary border-none rounded-lg p-2 text-sm leading-tight placeholder-secondary focus:outline-none"
+        className="bg-G-80 h-[40px] w-[268px] pt-[8px] pr-[16px] pb-[8px] pl-[12px] text-primary border border-G-60 rounded-lg p-2 text-sm leading-tight focus:outline-none placeholder:text-disabled placeholder:font-lexend placeholder:leading-[17.5px] placeholder:text-[14px] placeholder:font-normal"
       />
     </div>
   );

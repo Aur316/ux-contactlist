@@ -30,7 +30,7 @@ export default function Contact({
 
   return (
     <div className="relative flex flex-row gap-1">
-      <ImageIcon imageUrl={imageUrl} />
+      <ImageIcon imageUrl={imageUrl} className="w-10 h-10" />
       <NameNumber name={name} phone={phone} />
       <img
         src="/icons/More.png"
