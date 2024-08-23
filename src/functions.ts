@@ -3,7 +3,7 @@ import axios from "axios";
 export const deleteContact = async (id: number): Promise<void> => {
   try {
     await axios.delete(`/api/contact`, {
-      params: { id: 3 },
+      params: { id: id },
     });
     console.log(`Contact with id ${id} deleted successfully`);
   } catch (error) {

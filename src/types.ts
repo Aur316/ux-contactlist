@@ -38,4 +38,6 @@ export interface DropdownProps {
 export interface StoreContextType {
   showForm: boolean;
   setShowForm: (value: boolean) => void;
+  contacts: ContactType[] | null;
+  setContacts: React.Dispatch<React.SetStateAction<ContactType[] | null>>;
 }

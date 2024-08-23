@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ContactType } from "@/types";
 import Contact from "./components/Contact";
-import Button from "./components/ui/button/Button";
 import ContactForm from "./components/ui/ContactForm";
 import Header from "./components/Header";
 import { useStore } from "./context/store";
 
 export default function Home() {
-  const [contacts, setContacts] = useState<ContactType[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const { showForm } = useStore();
+  const { showForm, contacts, setContacts } = useStore();
 
   useEffect(() => {
     setLoading(true);
@@ -32,9 +29,10 @@ export default function Home() {
   }, []);
 
   const handleDelete = (id: number) => {
-    setContacts((prevContacts) =>
-      prevContacts ? prevContacts.filter((contact) => contact.id !== id) : null
-    );
+    if (contacts) {
+      const updatedContacts = contacts.filter((contact) => contact.id !== id);
+      setContacts(updatedContacts);
+    }
   };
 
   if (error) {

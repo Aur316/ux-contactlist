@@ -18,9 +18,9 @@ export default function Contact({
   onDelete,
 }: ContactProps) {
   const [visibleDropDown, setVisibleDropDown] = useState<boolean>(false);
-  console.log(imageUrl, "imageURL111");
   const handleDelete = async () => {
     try {
+      console.log(id, "!!!!!!");
       await deleteContact(id);
       onDelete(id);
     } catch (error) {

@@ -10,9 +10,10 @@ export default function AddContactForm() {
   const [phone, setPhone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { setShowForm } = useStore();
+  const { setShowForm, contacts, setContacts } = useStore();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const addNewContact = async () => {
     try {
       let uploadedImageUrl = "";
@@ -30,12 +31,17 @@ export default function AddContactForm() {
         uploadedImageUrl = response.data.url;
       }
 
-      await axios.post("/api/contact", {
+      const newContactResponse = await axios.post("/api/contact", {
         name,
         phone,
         email,
         imageUrl: uploadedImageUrl,
       });
+
+      setContacts((prevContacts) => [
+        ...(prevContacts || []),
+        newContactResponse.data.contact,
+      ]);
 
       setName("");
       setPhone("");
