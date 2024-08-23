@@ -31,7 +31,7 @@ export default function Contact({
   };
 
   return (
-    <div className="relative flex flex-row justify-between w-[720px] h-[64px] items-center">
+    <div className="relative flex flex-row justify-between w-[720px] h-[64px] items-center group">
       <div className="flex flex-row gap-[16px]">
         <ImageIcon
           imageUrl={imageUrl}
@@ -39,20 +39,20 @@ export default function Contact({
         />
         <NameNumber name={name} phone={phone} />
       </div>
-      <div className="flex flex-row gap-[8px] relative">
+      <div className="flex flex-row gap-[8px] relative opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <ImageIcon
           imageUrl="/icons/Mute.png"
-          className="cursor-pointer "
+          className="cursor-pointer"
           alt="Mute"
         />
         <ImageIcon
           imageUrl="/icons/Call.png"
-          className="cursor-pointer "
+          className="cursor-pointer"
           alt="Call"
         />
         <ImageIcon
           imageUrl="/icons/More.png"
-          className="cursor-pointer "
+          className="cursor-pointer"
           alt="Settings"
           onClick={() => {
             setVisibleDropDown(!visibleDropDown);

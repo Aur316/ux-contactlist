@@ -1,5 +1,6 @@
+import { useEffect, useRef } from "react";
 import { DropdownProps } from "@/types";
-import { useStore } from "@/pages/context/store"; // Hozzáadjuk a Store-t
+import { useStore } from "@/pages/context/store";
 
 export default function Dropdown({
   values,
@@ -9,9 +10,26 @@ export default function Dropdown({
   setVisibleDropDown,
 }: DropdownProps) {
   const { setShowForm, setEditingContact } = useStore();
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const ClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setVisibleDropDown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", ClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", ClickOutside);
+    };
+  }, [setVisibleDropDown]);
 
   return (
-    <div className={className}>
+    <div ref={dropdownRef} className={className}>
       {values.map((value, index) => (
         <div
           key={value}
