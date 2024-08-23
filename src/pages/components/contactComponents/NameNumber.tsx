@@ -2,6 +2,10 @@ import { NameNumberProps } from "@/types";
 import React from "react";
 
 export default function NameNumber({ name, phone }: NameNumberProps) {
+  const formattedPhone = phone.toString().startsWith("+")
+    ? phone.toString()
+    : `+${phone}`;
+
   return (
     <div className="h-10 flex flex-col">
       <span
@@ -14,7 +18,7 @@ export default function NameNumber({ name, phone }: NameNumberProps) {
         id="contactNumber"
         className="font-normal text-xs leading-4 tracking-wide font-lexend text-secondary"
       >
-        +{phone}
+        {formattedPhone}
       </span>
     </div>
   );
