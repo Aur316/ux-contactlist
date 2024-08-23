@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <div
       id="contactList"
-      className="bg-G-100 text-primary p-4 flex flex-col gap-2"
+      className="bg-G-100 text-primary p-4 flex flex-col gap-2 min-h-screen"
     >
       <Header />
       {contacts ? (
@@ -80,7 +80,11 @@ export default function Home() {
         text="icon"
         icon="/icons/Add.png"
       /> */}
-      {showForm && <ContactForm />}
+      {showForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
+          <ContactForm />
+        </div>
+      )}
     </div>
   );
 }
