@@ -45,6 +45,7 @@ export default function AddContactForm() {
     try {
       let newImageUrl = uploadedImageUrl;
 
+      // If there's an image file, upload it
       if (imageFile) {
         const formData = new FormData();
         formData.append("file", imageFile);
@@ -59,6 +60,7 @@ export default function AddContactForm() {
       }
 
       if (editingContact) {
+        // Update existing contact
         const updatedContactResponse = await axios.put(
           `/api/contact?id=${editingContact.id}`,
           {
@@ -69,15 +71,15 @@ export default function AddContactForm() {
           }
         );
 
-        setContacts(
-          (prevContacts) =>
-            prevContacts?.map((contact) =>
-              contact.id === editingContact.id
-                ? updatedContactResponse.data.contact
-                : contact
-            ) || []
+        setContacts((prevContacts) =>
+          (prevContacts || []).map((contact) =>
+            contact.id === editingContact.id
+              ? updatedContactResponse.data.contact
+              : contact
+          )
         );
       } else {
+        // Create a new contact
         const newContactResponse = await axios.post("/api/contact", {
           name,
           phone,
