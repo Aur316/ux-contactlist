@@ -6,7 +6,7 @@
     "dev": "next dev",
     "migrate": "prisma migrate deploy",
     "postinstall": "prisma generate",
-    "build": "cp prisma/dev.db .next/server/pages/api/ && next build",
+    "build": "next build && cp prisma/dev.db .next/",
     "start": "next start",
     "lint": "next lint"
   },
