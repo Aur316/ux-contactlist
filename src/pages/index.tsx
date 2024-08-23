@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div
       id="contactList"
-      className="bg-G-100 text-primary flex flex-col min-h-screen overflow-hidden"
+      className="bg-G-100 text-primary flex flex-col min-h-screen  overflow-hidden"
     >
       <Nav />
       <div className="flex-1 flex flex-col items-center justify-start border-r border-l border-disabled w-[766px] mx-auto px-[22px]">
