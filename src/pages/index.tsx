@@ -5,6 +5,7 @@ import ContactForm from "./components/ui/ContactForm";
 import { useStore } from "./context/store";
 import Nav from "./components/Nav";
 import Loader from "./components/ui/loader/Loader";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const [error, setError] = useState<string | null>(null);
@@ -51,26 +52,43 @@ export default function Home() {
             <Loader />
           </div>
         ) : contacts ? (
-          contacts.map((contact) => (
-            <Contact
-              key={contact.id}
-              id={contact.id}
-              name={contact.name}
-              phone={contact.phone}
-              imageUrl={contact.imageUrl || "/image/Default.png"}
-              onDelete={handleDelete}
-              contact={contact}
-            />
-          ))
+          <AnimatePresence>
+            {contacts.map((contact) => (
+              <motion.div
+                key={contact.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                <Contact
+                  id={contact.id}
+                  name={contact.name}
+                  phone={contact.phone}
+                  imageUrl={contact.imageUrl || "/image/Default.png"}
+                  onDelete={handleDelete}
+                  contact={contact}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         ) : (
           <p>No contacts found</p>
         )}
       </div>
-      {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
-          <ContactForm />
-        </div>
-      )}
+      <AnimatePresence>
+        {showForm && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <ContactForm />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

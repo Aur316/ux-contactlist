@@ -4,6 +4,7 @@ import { ImageIconProps, NameNumberProps } from "@/types";
 import ImageIcon from "./contactComponents/ImageIcon";
 import NameNumber from "./contactComponents/NameNumber";
 import Dropdown from "./ui/dropdown/Dropdown";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface ContactProps extends NameNumberProps, ImageIconProps {
   id: number;
@@ -59,15 +60,24 @@ export default function Contact({
           }}
         />
       </div>
-      {visibleDropDown && (
-        <Dropdown
-          values={["Edit", "Favourite", "Remove"]}
-          onDelete={handleDelete}
-          className="absolute top-full right-[-200px] z-20 bg-G-80 h-[132px] w-[219px] rounded-[8px]"
-          contact={contact}
-          setVisibleDropDown={setVisibleDropDown}
-        />
-      )}
+      <AnimatePresence>
+        {visibleDropDown && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="absolute top-full right-[-200px] z-20 bg-G-80 h-[132px] w-[219px] rounded-[8px]"
+          >
+            <Dropdown
+              values={["Edit", "Favourite", "Remove"]}
+              onDelete={handleDelete}
+              contact={contact}
+              setVisibleDropDown={setVisibleDropDown}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

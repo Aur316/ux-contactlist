@@ -5,6 +5,7 @@ import axios from "axios";
 import ImageIcon from "../contactComponents/ImageIcon";
 import { useStore } from "@/pages/context/store";
 import Loader from "./loader/Loader";
+import { motion } from "framer-motion";
 
 export default function AddContactForm() {
   const { setShowForm, setEditingContact, setContacts, editingContact } =
@@ -195,7 +196,7 @@ export default function AddContactForm() {
           type={"text"}
         />
       </div>
-      <div className="flex justify-end mt-6 gap-2 ">
+      <div className="flex justify-end  gap-2">
         <Button
           className="text-primary font-lexend w-[78px] rounded-[8px]"
           text="text"
