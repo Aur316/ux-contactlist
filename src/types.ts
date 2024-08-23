@@ -28,6 +28,7 @@ export interface ButtonProps {
   value?: string;
   onClick?: any;
   className?: string;
+  disabled?: boolean;
 }
 
 export interface DropdownProps {

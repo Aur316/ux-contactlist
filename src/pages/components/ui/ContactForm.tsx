@@ -5,7 +5,6 @@ import axios from "axios";
 import ImageIcon from "../contactComponents/ImageIcon";
 import { useStore } from "@/pages/context/store";
 import Loader from "./loader/Loader";
-import { motion } from "framer-motion";
 
 export default function AddContactForm() {
   const { setShowForm, setEditingContact, setContacts, editingContact } =
@@ -207,10 +206,15 @@ export default function AddContactForm() {
           }}
         />
         <Button
-          className="rounded-[8px] text-primary bg-G-60 font-lexend w-[68px] pt-[8px] pr-[16px] pb-[8px] pl-[16px]"
+          className={`rounded-[8px] text-primary bg-G-60 font-lexend w-[68px] pt-[8px] pr-[16px] pb-[8px] pl-[16px] ${
+            !name || !phone || !email || phone.length < 7 || name.length < 3
+              ? "cursor-not-allowed"
+              : ""
+          }`}
           text="text"
           value="Done"
           onClick={addNewContact}
+          disabled={!name || !phone || !email}
         />
       </div>
     </div>

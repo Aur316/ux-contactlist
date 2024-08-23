@@ -43,10 +43,10 @@ export default function Home() {
   return (
     <div
       id="contactList"
-      className="bg-G-100 text-primary p-4 flex flex-col  min-h-screen"
+      className="bg-G-100 text-primary flex flex-col min-h-screen overflow-hidden"
     >
       <Nav />
-      <div className="border-r border-l border-disabled w-[766px] h-screen mx-auto px-[22px]">
+      <div className="flex-1 flex flex-col items-center justify-start border-r border-l border-disabled w-[766px] mx-auto px-[22px]">
         {loading ? (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
             <Loader />
@@ -60,6 +60,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="w-full"
               >
                 <Contact
                   id={contact.id}
@@ -68,6 +69,7 @@ export default function Home() {
                   imageUrl={contact.imageUrl || "/image/Default.png"}
                   onDelete={handleDelete}
                   contact={contact}
+                  className="flex flex-col items-center justify-center"
                 />
               </motion.div>
             ))}
