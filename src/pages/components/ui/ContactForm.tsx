@@ -3,15 +3,16 @@ import Input from "./input/Input";
 import Button from "./button/Button";
 import axios from "axios";
 import ImageIcon from "../contactComponents/ImageIcon";
+import { useStore } from "@/pages/context/store";
 
 export default function AddContactForm() {
   const [name, setName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const { setShowForm } = useStore();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const addNewContact = async () => {
     try {
       let uploadedImageUrl = "";
@@ -40,6 +41,7 @@ export default function AddContactForm() {
       setPhone("");
       setEmail("");
       setImageFile(null);
+      setShowForm(false);
     } catch (error) {
       console.error("Error adding contact:", error);
     }
@@ -127,6 +129,9 @@ export default function AddContactForm() {
           className="text-primary font-lexend w-[78px]"
           text="text"
           value="Cancel"
+          onClick={() => {
+            setShowForm(false);
+          }}
         />
         <Button
           className="rounded-[8px] text-primary bg-G-60 font-lexend w-[68px] pt-[8px] pr-[16px] pb-[8px] pl-[16px]"

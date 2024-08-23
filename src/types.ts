@@ -31,3 +31,8 @@ export interface DropdownProps {
   values: string[];
   onDelete: () => void;
 }
+
+export interface StoreContextType {
+  showForm: boolean;
+  setShowForm: (value: boolean) => void;
+}

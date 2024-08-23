@@ -4,11 +4,14 @@ import { ContactType } from "@/types";
 import Contact from "./components/Contact";
 import Button from "./components/ui/button/Button";
 import ContactForm from "./components/ui/ContactForm";
+import Header from "./components/Header";
+import { useStore } from "./context/store";
 
 export default function Home() {
   const [contacts, setContacts] = useState<ContactType[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const { showForm } = useStore();
 
   useEffect(() => {
     setLoading(true);
@@ -46,6 +49,7 @@ export default function Home() {
       id="contactList"
       className="bg-G-100 text-primary p-4 flex flex-col gap-2"
     >
+      <Header />
       {contacts ? (
         contacts.map((contact) => (
           <Contact
@@ -76,7 +80,7 @@ export default function Home() {
         text="icon"
         icon="/icons/Add.png"
       /> */}
-      <ContactForm />
+      {showForm && <ContactForm />}
     </div>
   );
 }
