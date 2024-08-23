@@ -6,7 +6,8 @@ import ImageIcon from "../contactComponents/ImageIcon";
 import { useStore } from "@/pages/context/store";
 
 export default function AddContactForm() {
-  const { setShowForm, contacts, setContacts, editingContact } = useStore();
+  const { setShowForm, setEditingContact, setContacts, editingContact } =
+    useStore();
   const [name, setName] = useState<string>(editingContact?.name || "");
   const [phone, setPhone] = useState<string>(editingContact?.phone || "");
   const [email, setEmail] = useState<string>(editingContact?.email || "");
@@ -14,6 +15,8 @@ export default function AddContactForm() {
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>(
     editingContact?.imageUrl || ""
   );
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -26,8 +29,21 @@ export default function AddContactForm() {
     }
   }, [editingContact]);
 
+  const resetForm = () => {
+    setName("");
+    setPhone("");
+    setEmail("");
+    setImageFile(null);
+    setUploadedImageUrl("");
+  };
+
   const addNewContact = async () => {
+    setLoading(true);
+    setError(null);
+
     try {
+      let newImageUrl = uploadedImageUrl;
+
       if (imageFile) {
         const formData = new FormData();
         formData.append("file", imageFile);
@@ -38,22 +54,34 @@ export default function AddContactForm() {
           },
         });
 
-        setUploadedImageUrl(response.data.url);
+        newImageUrl = response.data.url;
       }
 
       if (editingContact) {
-        await axios.put(`/api/contact?id=${editingContact.id}`, {
-          name,
-          phone,
-          email,
-          imageUrl: uploadedImageUrl,
-        });
+        const updatedContactResponse = await axios.put(
+          `/api/contact?id=${editingContact.id}`,
+          {
+            name,
+            phone,
+            email,
+            imageUrl: newImageUrl,
+          }
+        );
+
+        setContacts(
+          (prevContacts) =>
+            prevContacts?.map((contact) =>
+              contact.id === editingContact.id
+                ? updatedContactResponse.data.contact
+                : contact
+            ) || []
+        );
       } else {
         const newContactResponse = await axios.post("/api/contact", {
           name,
           phone,
           email,
-          imageUrl: uploadedImageUrl,
+          imageUrl: newImageUrl,
         });
 
         setContacts((prevContacts) => [
@@ -61,22 +89,28 @@ export default function AddContactForm() {
           newContactResponse.data.contact,
         ]);
       }
-      const response = await axios.get("/api/contact");
-      setContacts(response.data.contacts || []);
 
-      setName("");
-      setPhone("");
-      setEmail("");
-      setImageFile(null);
+      resetForm();
       setShowForm(false);
     } catch (error) {
       console.error("Error adding contact:", error);
+      setError("Failed to save contact. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const ImageSelect = () => {
     fileInputRef.current?.click();
   };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
 
   return (
     <div className="bg-G-100 rounded-lg p-6 w-[364px] h-[540px] p-[48px]">
@@ -113,16 +147,21 @@ export default function AddContactForm() {
               className={`rounded-[8px] text-primary bg-G-60 pt-[8px] pr-[16px] pb-[8px] pl-[12px] ${
                 imageFile ? "w-[164px]" : "w-[139px]"
               }`}
-              value={imageFile ? "Change Picture" : "Add Picture"}
+              value={
+                imageFile || editingContact ? "Change Picture" : "Add Picture"
+              }
               icon={imageFile ? "/icons/Change.png" : "/icons/Add.png"}
               onClick={ImageSelect}
             />
-            {imageFile && (
+            {(imageFile || editingContact) && (
               <Button
                 text="icon"
                 icon="/icons/Remove.png"
                 className="w-[40px] h-[40px] rounded-[8px] bg-G-60"
                 onClick={() => {
+                  if (editingContact) {
+                    setUploadedImageUrl("");
+                  }
                   setImageFile(null);
                 }}
               />
@@ -157,6 +196,7 @@ export default function AddContactForm() {
           text="text"
           value="Cancel"
           onClick={() => {
+            setEditingContact(null);
             setShowForm(false);
           }}
         />

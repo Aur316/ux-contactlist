@@ -15,7 +15,6 @@ export default function Home() {
     const getContacts = async () => {
       try {
         const response = await axios.get("/api/contact");
-        console.log(response, "res");
         setContacts(response.data.contacts || []);
         setLoading(false);
       } catch (error) {
@@ -63,22 +62,7 @@ export default function Home() {
       ) : (
         <p>No contacts found</p>
       )}
-      {/* <Button
-        radius="rounded-[15px]"
-        color="text-secondary"
-        background="bg-amber-400"
-        text="double"
-        icon="/icons/Add.png"
-        value="Add new"
-      />
 
-      <Button
-        radius=""
-        color=""
-        background="bg-amber-400"
-        text="icon"
-        icon="/icons/Add.png"
-      /> */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
           <ContactForm />

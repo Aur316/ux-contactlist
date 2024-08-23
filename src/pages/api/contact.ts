@@ -55,7 +55,7 @@ export default async function handler(
 
   const requestCount = rateLimiter.get(ip as string) || 0;
 
-  if (requestCount >= 10) {
+  if (requestCount >= 30) {
     return res
       .status(429)
       .json({ error: "Too many requests, please try again later." });
@@ -133,8 +133,15 @@ export default async function handler(
           const { id } = req.query;
           const { name, email, phone, imageUrl } = body;
 
+          if (!id) {
+            return res.status(400).json({ error: "Missing ID in query" });
+          } else {
+            console.log("ID received for update:", id);
+          }
+
           const { error: idError } = idSchema.validate({ id });
           if (idError) {
+            console.log("ID validation error:", idError.details[0].message);
             return res.status(400).json({ error: idError.details[0].message });
           }
 
@@ -152,6 +159,7 @@ export default async function handler(
             imageUrl,
           });
           if (error) {
+            console.log("Schema validation error:", error.details[0].message);
             return res.status(400).json({ error: error.details[0].message });
           }
 
@@ -159,18 +167,16 @@ export default async function handler(
           if (name) dataToUpdate.name = name;
           if (email) dataToUpdate.email = email;
           if (phone) dataToUpdate.phone = phone;
-          if (imageUrl) dataToUpdate.imageUrl = imageUrl;
+          if (imageUrl !== undefined) dataToUpdate.imageUrl = imageUrl;
 
-          if (body.imageFile) {
-            const buffer = Buffer.from(body.imageFile, "base64");
-            const fileName = `images/${uuidv4()}.png`;
-            dataToUpdate.imageUrl = await uploadImageToS3(buffer, fileName);
-          }
+          console.log("Data to update:", dataToUpdate);
 
           const updatedContact = await prisma.contact.update({
             where: { id: Number(id) },
             data: dataToUpdate,
           });
+
+          console.log("Updated contact:", updatedContact);
 
           res.status(200).json({
             message: "Contact updated successfully",
