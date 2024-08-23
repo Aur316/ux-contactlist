@@ -8,6 +8,7 @@ import Dropdown from "./ui/dropdown/Dropdown";
 interface ContactProps extends NameNumberProps, ImageIconProps {
   id: number;
   onDelete: (id: number) => void;
+  contact: any;
 }
 
 export default function Contact({
@@ -16,11 +17,12 @@ export default function Contact({
   phone,
   imageUrl,
   onDelete,
+  contact,
 }: ContactProps) {
   const [visibleDropDown, setVisibleDropDown] = useState<boolean>(false);
+
   const handleDelete = async () => {
     try {
-      console.log(id, "!!!!!!");
       await deleteContact(id);
       onDelete(id);
     } catch (error) {
@@ -62,6 +64,8 @@ export default function Contact({
           values={["Edit", "Favourite", "Remove"]}
           onDelete={handleDelete}
           className="absolute top-full right-[-200px] z-20 bg-G-80 h-[132px] w-[219px] rounded-[8px]"
+          contact={contact}
+          setVisibleDropDown={setVisibleDropDown}
         />
       )}
     </div>

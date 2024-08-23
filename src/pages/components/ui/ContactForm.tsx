@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Input from "./input/Input";
 import Button from "./button/Button";
 import axios from "axios";
@@ -6,18 +6,28 @@ import ImageIcon from "../contactComponents/ImageIcon";
 import { useStore } from "@/pages/context/store";
 
 export default function AddContactForm() {
-  const [name, setName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const { setShowForm, contacts, setContacts, editingContact } = useStore();
+  const [name, setName] = useState<string>(editingContact?.name || "");
+  const [phone, setPhone] = useState<string>(editingContact?.phone || "");
+  const [email, setEmail] = useState<string>(editingContact?.email || "");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { setShowForm, contacts, setContacts } = useStore();
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>(
+    editingContact?.imageUrl || ""
+  );
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  useEffect(() => {
+    if (editingContact) {
+      setName(editingContact.name);
+      setPhone(editingContact.phone);
+      setEmail(editingContact.email);
+      setUploadedImageUrl(editingContact.imageUrl || "");
+    }
+  }, [editingContact]);
+
   const addNewContact = async () => {
     try {
-      let uploadedImageUrl = "";
-
       if (imageFile) {
         const formData = new FormData();
         formData.append("file", imageFile);
@@ -28,20 +38,31 @@ export default function AddContactForm() {
           },
         });
 
-        uploadedImageUrl = response.data.url;
+        setUploadedImageUrl(response.data.url);
       }
 
-      const newContactResponse = await axios.post("/api/contact", {
-        name,
-        phone,
-        email,
-        imageUrl: uploadedImageUrl,
-      });
+      if (editingContact) {
+        await axios.put(`/api/contact?id=${editingContact.id}`, {
+          name,
+          phone,
+          email,
+          imageUrl: uploadedImageUrl,
+        });
+      } else {
+        const newContactResponse = await axios.post("/api/contact", {
+          name,
+          phone,
+          email,
+          imageUrl: uploadedImageUrl,
+        });
 
-      setContacts((prevContacts) => [
-        ...(prevContacts || []),
-        newContactResponse.data.contact,
-      ]);
+        setContacts((prevContacts) => [
+          ...(prevContacts || []),
+          newContactResponse.data.contact,
+        ]);
+      }
+      const response = await axios.get("/api/contact");
+      setContacts(response.data.contacts || []);
 
       setName("");
       setPhone("");
@@ -62,7 +83,7 @@ export default function AddContactForm() {
       <div className="w-[316px] h-[404px] flex flex-col gap-6">
         <div>
           <h2 className="text-primary text-[24px] mb-4 font-glysa font-medium leading-[40px]">
-            Add contact
+            {editingContact ? "Edit Contact" : "Add Contact"}
           </h2>
 
           <div className="flex items-center flex flex-row gap-3">
@@ -70,7 +91,7 @@ export default function AddContactForm() {
               imageUrl={
                 imageFile
                   ? URL.createObjectURL(imageFile)
-                  : "/image/Default.png"
+                  : uploadedImageUrl || "/image/Default.png"
               }
               className="w-16 h-16  rounded-full border border-[#282828]"
             />

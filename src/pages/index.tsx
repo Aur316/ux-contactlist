@@ -57,6 +57,7 @@ export default function Home() {
             phone={contact.phone}
             imageUrl={contact.imageUrl || "/image/Default.png"}
             onDelete={handleDelete}
+            contact={contact}
           />
         ))
       ) : (

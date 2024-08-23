@@ -1,10 +1,15 @@
 import { DropdownProps } from "@/types";
+import { useStore } from "@/pages/context/store"; // Hozzáadjuk a Store-t
 
 export default function Dropdown({
   values,
   onDelete,
   className,
+  contact,
+  setVisibleDropDown,
 }: DropdownProps) {
+  const { setShowForm, setEditingContact } = useStore();
+
   return (
     <div className={className}>
       {values.map((value, index) => (
@@ -13,7 +18,11 @@ export default function Dropdown({
           onClick={() => {
             if (value === "Remove") {
               onDelete();
+            } else if (value === "Edit") {
+              setEditingContact(contact);
+              setShowForm(true);
             }
+            setVisibleDropDown(false);
           }}
           className={`hover:bg-G-70 hover:cursor-pointer ${
             index === 0 ? "rounded-t-lg" : ""

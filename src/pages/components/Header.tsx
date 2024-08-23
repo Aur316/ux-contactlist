@@ -13,7 +13,7 @@ export default function Header() {
         <Button
           text="icon"
           icon="/icons/Edit.png"
-          className="w-[24px] h-[24px] rounded-[8px] bg-G-60"
+          className="w-[24px] h-[24px] rounded-[8px] "
         />
         <ImageIcon
           imageUrl={"/icons/Profile.png"}

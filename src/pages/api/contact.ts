@@ -19,7 +19,7 @@ const contactSchema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
   email: Joi.string().email().required(),
   phone: Joi.string().min(7).max(15).required(),
-  imageUrl: Joi.string().uri().optional(),
+  imageUrl: Joi.string().uri().optional().allow(null, ""),
 });
 
 const idSchema = Joi.object({
@@ -130,7 +130,8 @@ export default async function handler(
 
       case "PUT":
         try {
-          const { id, name, email, phone, imageUrl } = body;
+          const { id } = req.query;
+          const { name, email, phone, imageUrl } = body;
 
           const { error: idError } = idSchema.validate({ id });
           if (idError) {
@@ -167,7 +168,7 @@ export default async function handler(
           }
 
           const updatedContact = await prisma.contact.update({
-            where: { id },
+            where: { id: Number(id) },
             data: dataToUpdate,
           });
 

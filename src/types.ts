@@ -33,6 +33,8 @@ export interface DropdownProps {
   values: string[];
   onDelete: () => void;
   className?: string;
+  contact: any;
+  setVisibleDropDown: any;
 }
 
 export interface StoreContextType {
@@ -40,4 +42,6 @@ export interface StoreContextType {
   setShowForm: (value: boolean) => void;
   contacts: ContactType[] | null;
   setContacts: React.Dispatch<React.SetStateAction<ContactType[] | null>>;
+  editingContact: any;
+  setEditingContact: any;
 }
