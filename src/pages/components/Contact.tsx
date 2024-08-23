@@ -31,7 +31,7 @@ export default function Contact({
   };
 
   return (
-    <div className="relative flex flex-row justify-between w-[720px] h-[64px] items-center group">
+    <div className="relative flex flex-row justify-between w-[720px] h-[64px] items-center group ">
       <div className="flex flex-row gap-[16px]">
         <ImageIcon
           imageUrl={imageUrl}
