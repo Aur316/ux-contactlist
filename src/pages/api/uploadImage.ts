@@ -8,7 +8,7 @@ const s3 = new AWS.S3();
 
 export const config = {
   api: {
-    bodyParser: false, // Disable the default body parser
+    bodyParser: false,
   },
 };
 

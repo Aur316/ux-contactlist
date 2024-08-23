@@ -3,7 +3,6 @@ import { PrismaClient, Contact } from "@prisma/client";
 import Joi from "joi";
 import { LRUCache } from "lru-cache";
 import AWS from "aws-sdk";
-import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 const s3 = new AWS.S3();
@@ -30,18 +29,6 @@ const rateLimiter = new LRUCache<string, number>({
   max: 100,
   ttl: 60 * 1000,
 });
-
-async function uploadImageToS3(file: Buffer, fileName: string) {
-  const params = {
-    Bucket: process.env.AWS_BUCKET_NAME!,
-    Key: fileName,
-    Body: file,
-    ACL: "public-read",
-  };
-
-  const data = await s3.upload(params).promise();
-  return data.Location;
-}
 
 export default async function handler(
   req: NextApiRequest,
