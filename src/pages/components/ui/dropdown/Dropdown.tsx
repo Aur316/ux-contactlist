@@ -47,7 +47,7 @@ export default function Dropdown({
           } ${index === values.length - 1 ? "rounded-b-lg" : ""}`}
         >
           <div className="flex flex-row gap-[12px] h-[44px] items-center pt-[12px] pr-[10px] pb-[12px] pl-[10px]">
-            <img src={`/icons/${value}.png`} alt={value} />
+            <img src={`/icons/${value}.svg`} alt={value} />
             <p>{value}</p>
           </div>
         </div>

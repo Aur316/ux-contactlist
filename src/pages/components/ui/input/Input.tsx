@@ -23,7 +23,10 @@ export default function InputField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="bg-G-80 h-[40px] w-[268px] pt-[8px] pr-[16px] pb-[8px] pl-[12px] text-primary border border-G-60 rounded-lg p-2 text-sm leading-tight focus:outline-none placeholder:text-disabled placeholder:font-lexend placeholder:leading-[17.5px] placeholder:text-[14px] placeholder:font-normal"
+        className="bg-G-80 h-[40px] w-[316px] pt-[8px] pr-[16px] pb-[8px] pl-[12px] text-primary border border-G-60 rounded-lg p-2 text-sm leading-tight focus:outline-none placeholder:text-disabled placeholder:font-lexend placeholder:leading-[17.5px] placeholder:text-[14px] placeholder:font-normal
+        hover:border-G-30
+        active:bg-G-60 active:border-G-10 active:text-primary
+        finished:border-G-60 finished:text-primary"
       />
     </div>
   );

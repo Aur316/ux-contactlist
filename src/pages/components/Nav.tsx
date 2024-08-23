@@ -13,14 +13,14 @@ export default function Nav() {
       <div className="flex flex-row items-center justify-between border-t border-b border-disabled">
         <div className="flex flex-row items-center ml-auto h-[92px] border-r border-disabled pr-[22px]">
           <ImageIcon
-            imageUrl="/icons/Back.png"
+            imageUrl="/icons/Back.svg"
             className="w-[24px] h-[24px] cursor-pointer"
           />
         </div>
         <Header />
         <div className="flex flex-row items-center h-[92px] mr-auto border-l border-disabled pl-[22px]">
           <ImageIcon
-            imageUrl="/icons/Light.png"
+            imageUrl="/icons/Light.svg"
             className="w-[24px] h-[24px] cursor-pointer"
           />
         </div>

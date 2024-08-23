@@ -6,14 +6,19 @@ export default function ImageIcon({
   className,
   alt,
   onClick,
+  parentSize,
 }: ImageIconProps) {
   return (
-    <img
-      id="contactPicture"
-      className={` ${className}`}
-      src={imageUrl}
-      alt={alt}
-      onClick={onClick}
-    />
+    <div
+      className={`flex  ${parentSize} items-center justify-center cursor-pointer`}
+    >
+      <img
+        id="contactPicture"
+        className={` ${className}`}
+        src={imageUrl}
+        alt={alt}
+        onClick={onClick}
+      />
+    </div>
   );
 }

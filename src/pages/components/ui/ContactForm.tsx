@@ -114,21 +114,21 @@ export default function AddContactForm() {
   }
 
   return (
-    <div className="bg-G-100 rounded-lg p-6 w-[364px] h-[540px] p-[48px]">
+    <div className="bg-G-100 rounded-lg p-[24px] w-[364px] h-[540px] p-[48px]">
       <div className="w-[316px] h-[404px] flex flex-col gap-6">
         <div>
           <h2 className="text-primary text-[24px] mb-4 font-glysa font-medium leading-[40px]">
             {editingContact ? "Edit Contact" : "Add Contact"}
           </h2>
 
-          <div className="flex items-center flex flex-row gap-3">
+          <div className="flex items-center flex flex-row gap-3 w-[316px] h-[88px]">
             <ImageIcon
               imageUrl={
                 imageFile
                   ? URL.createObjectURL(imageFile)
                   : uploadedImageUrl || "/image/Default.png"
               }
-              className="w-16 h-16  rounded-full border border-[#282828]"
+              className="w-[88px] h-[88px] rounded-full border border-[#282828]"
             />
 
             <input
@@ -145,19 +145,23 @@ export default function AddContactForm() {
 
             <Button
               text="double"
-              className={`rounded-[8px] text-primary bg-G-60 pt-[8px] pr-[16px] pb-[8px] pl-[12px] ${
-                imageFile ? "w-[164px]" : "w-[139px]"
+              className={`rounded-[8px] text-primary bg-G-60 pt-[8px] pr-[16px] pb-[8px] pl-[12px]  ${
+                imageFile || editingContact ? "w-[164px]" : "w-[139px]"
               }`}
               value={
                 imageFile || editingContact ? "Change Picture" : "Add Picture"
               }
-              icon={imageFile ? "/icons/Change.png" : "/icons/Add.png"}
+              icon={
+                imageFile || editingContact
+                  ? "/icons/Change.svg"
+                  : "/icons/Add.svg"
+              }
               onClick={ImageSelect}
             />
             {(imageFile || editingContact) && (
               <Button
                 text="icon"
-                icon="/icons/Remove.png"
+                icon="/icons/Remove.svg"
                 className="w-[40px] h-[40px] rounded-[8px] bg-G-60"
                 onClick={() => {
                   if (editingContact) {

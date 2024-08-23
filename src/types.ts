@@ -16,6 +16,7 @@ export interface ImageIconProps {
   className?: string;
   alt?: string;
   onClick?: any;
+  parentSize?: string;
 }
 
 export interface ButtonProps {
