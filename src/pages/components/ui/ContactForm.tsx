@@ -4,6 +4,7 @@ import Button from "./button/Button";
 import axios from "axios";
 import ImageIcon from "../contactComponents/ImageIcon";
 import { useStore } from "@/pages/context/store";
+import Loader from "./loader/Loader";
 
 export default function AddContactForm() {
   const { setShowForm, setEditingContact, setContacts, editingContact } =
@@ -105,7 +106,7 @@ export default function AddContactForm() {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (error) {
@@ -190,9 +191,9 @@ export default function AddContactForm() {
           type={"text"}
         />
       </div>
-      <div className="flex justify-end mt-6 ">
+      <div className="flex justify-end mt-6 gap-2 ">
         <Button
-          className="text-primary font-lexend w-[78px]"
+          className="text-primary font-lexend w-[78px] rounded-[8px]"
           text="text"
           value="Cancel"
           onClick={() => {

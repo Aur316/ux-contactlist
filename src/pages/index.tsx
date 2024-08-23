@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Contact from "./components/Contact";
 import ContactForm from "./components/ui/ContactForm";
-import Header from "./components/Header";
 import { useStore } from "./context/store";
 import Nav from "./components/Nav";
+import Loader from "./components/ui/loader/Loader";
 
 export default function Home() {
   const [error, setError] = useState<string | null>(null);
@@ -36,10 +36,7 @@ export default function Home() {
   };
 
   if (error) {
-    return <p>{error}</p>;
-  }
-  if (loading) {
-    return <p>Loading...</p>;
+    return <p className="text-red-500">{error}</p>;
   }
 
   return (
@@ -48,15 +45,12 @@ export default function Home() {
       className="bg-G-100 text-primary p-4 flex flex-col  min-h-screen"
     >
       <Nav />
-      <div
-        className="
-        border-r border-l border-disabled 
-        w-[766px] h-screen 
-        mx-auto 
-        px-[22px]
-      "
-      >
-        {contacts ? (
+      <div className="border-r border-l border-disabled w-[766px] h-screen mx-auto px-[22px]">
+        {loading ? (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
+            <Loader />
+          </div>
+        ) : contacts ? (
           contacts.map((contact) => (
             <Contact
               key={contact.id}
