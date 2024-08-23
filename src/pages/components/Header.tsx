@@ -17,7 +17,7 @@ export default function Header() {
         />
         <ImageIcon
           imageUrl={"/icons/Profile.png"}
-          className="w-[24px] h-[24px] "
+          className="w-[24px] h-[24px]  rounded-full border border-[#282828] "
         />
         <Button
           text="double"

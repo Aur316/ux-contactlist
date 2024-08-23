@@ -1,13 +1,19 @@
 import { ImageIconProps } from "@/types";
 import React from "react";
 
-export default function ImageIcon({ imageUrl, className }: ImageIconProps) {
+export default function ImageIcon({
+  imageUrl,
+  className,
+  alt,
+  onClick,
+}: ImageIconProps) {
   return (
     <img
       id="contactPicture"
-      className={` rounded-full border border-[#282828] ${className}`}
+      className={` ${className}`}
       src={imageUrl}
-      alt="Profile pic"
+      alt={alt}
+      onClick={onClick}
     />
   );
 }

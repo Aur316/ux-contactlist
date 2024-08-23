@@ -29,21 +29,39 @@ export default function Contact({
   };
 
   return (
-    <div className="relative flex flex-row gap-1">
-      <ImageIcon imageUrl={imageUrl} className="w-10 h-10" />
-      <NameNumber name={name} phone={phone} />
-      <img
-        src="/icons/More.png"
-        alt="Settings"
-        className="cursor-pointer"
-        onClick={() => {
-          setVisibleDropDown(!visibleDropDown);
-        }}
-      />
+    <div className="relative flex flex-row justify-between w-[720px] h-[64px] items-center">
+      <div className="flex flex-row gap-[16px]">
+        <ImageIcon
+          imageUrl={imageUrl}
+          className="w-10 h-10  rounded-full border border-[#282828]"
+        />
+        <NameNumber name={name} phone={phone} />
+      </div>
+      <div className="flex flex-row gap-[8px] relative">
+        <ImageIcon
+          imageUrl="/icons/Mute.png"
+          className="cursor-pointer "
+          alt="Mute"
+        />
+        <ImageIcon
+          imageUrl="/icons/Call.png"
+          className="cursor-pointer "
+          alt="Call"
+        />
+        <ImageIcon
+          imageUrl="/icons/More.png"
+          className="cursor-pointer "
+          alt="Settings"
+          onClick={() => {
+            setVisibleDropDown(!visibleDropDown);
+          }}
+        />
+      </div>
       {visibleDropDown && (
         <Dropdown
           values={["Edit", "Favourite", "Remove"]}
           onDelete={handleDelete}
+          className="absolute top-full right-[-200px] z-20 bg-G-80 h-[132px] w-[219px] rounded-[8px]"
         />
       )}
     </div>

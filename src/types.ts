@@ -14,6 +14,8 @@ export interface NameNumberProps {
 export interface ImageIconProps {
   imageUrl: string;
   className?: string;
+  alt?: string;
+  onClick?: any;
 }
 
 export interface ButtonProps {
@@ -30,6 +32,7 @@ export interface ButtonProps {
 export interface DropdownProps {
   values: string[];
   onDelete: () => void;
+  className?: string;
 }
 
 export interface StoreContextType {

@@ -66,7 +66,7 @@ export default function AddContactForm() {
                   ? URL.createObjectURL(imageFile)
                   : "/image/Default.png"
               }
-              className="w-16 h-16 "
+              className="w-16 h-16  rounded-full border border-[#282828]"
             />
 
             <input
