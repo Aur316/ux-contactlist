@@ -29,19 +29,27 @@ Before you begin, ensure you have met the following requirements:
 
 3. **Set up environment variables:**
 
-   Create a `.env` file in the root directory by copying the contents of `.env.example`:
+   Create a `.env` file in the root directory with the necessary environment variables for your project. For example:
 
-   \`\`\`bash
-   cp .env.example .env
-   \`\`\`
+   ```bash
+   touch .env
+   ```
 
-   Update the `.env` file with your own environment variables, such as your PostgreSQL database URL.
+# PostgreSQL Database URL
 
-   Example `.env` content:
+DATABASE_URL=postgresql://username:password@localhost:5432/yourdatabase
 
-   \`\`\`env
-   DATABASE_URL=postgresql://username:password@localhost:5432/yourdatabase
-   \`\`\`
+# Prisma Database Connection String
+
+POSTGRES_URL=your-postgres-url
+
+# API Keys (if needed)
+
+API_KEY=your-api-key
+
+# Other environment variables
+
+# Add any other environment variables your project requires here
 
 4. **Migrate the database:**
 
