@@ -8,7 +8,11 @@
     "postinstall": "prisma generate",
     "build": "cp prisma/dev.db .next/ && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:dev": "prisma generate --schema=./prisma/schema.dev.prisma",
+    "generate:prod": "prisma generate --schema=./prisma/schema.prod.prisma",
+    "migrate:dev": "prisma migrate dev --schema=./prisma/schema.dev.prisma",
+    "migrate:prod": "prisma migrate deploy --schema=./prisma/schema.prod.prisma"
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",
