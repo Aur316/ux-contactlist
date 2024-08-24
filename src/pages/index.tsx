@@ -6,6 +6,7 @@ import { useStore } from "../context/store";
 import Nav from "./components/Nav";
 import Loader from "./components/ui/loader/Loader";
 import { AnimatePresence, motion } from "framer-motion";
+import { ContactType } from "@/types";
 
 export default function Home() {
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +18,15 @@ export default function Home() {
     const getContacts = async () => {
       try {
         const response = await axios.get("/api/contact");
-        setContacts(response.data.contacts || []);
+        const contacts = response.data.contacts || [];
+
+        const sortedContacts = contacts.sort(
+          (a: ContactType, b: ContactType) => {
+            return a.name.localeCompare(b.name);
+          }
+        );
+
+        setContacts(sortedContacts);
         setLoading(false);
       } catch (error) {
         setError("Error fetching contacts");
