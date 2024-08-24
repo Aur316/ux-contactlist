@@ -27,31 +27,7 @@ Before you begin, ensure you have met the following requirements:
    npm install
    \`\`\`
 
-3. **Set up environment variables:**
-
-   Create a `.env` file in the root directory with the necessary environment variables for your project. For example:
-
-   ```bash
-   touch .env
-   ```
-
-# PostgreSQL Database URL
-
-DATABASE_URL=postgresql://username:password@localhost:5432/yourdatabase
-
-# Prisma Database Connection String
-
-POSTGRES_URL=your-postgres-url
-
-# API Keys (if needed)
-
-API_KEY=your-api-key
-
-# Other environment variables
-
-# Add any other environment variables your project requires here
-
-4. **Migrate the database:**
+3. **Migrate the database:**
 
    Once your `.env` file is configured, run the following command to apply the Prisma migrations and sync your database schema:
 
@@ -65,7 +41,7 @@ API_KEY=your-api-key
    npx prisma migrate deploy
    \`\`\`
 
-5. **Generate Prisma Client:**
+4. **Generate Prisma Client:**
 
    After migrating, generate the Prisma client:
 
