@@ -5,7 +5,7 @@ import Button from "./ui/button/Button";
 export default function Header() {
   const { setShowForm } = useStore();
   return (
-    <div className="flex flex-row justify-between items-center w-[720px] h-[48px] m-[22px]">
+    <div className=" customMax:justify-center flex flex-col justify-between items-center w-[60%] max-w-[720px] h-[48px] mx-[22px] custom:flex-row  custom:w-[60%] max-w-[720px]  ">
       <h1 className="font-medium text-[32px] leading-[48px] font-glysa text-primary">
         Contacts
       </h1>

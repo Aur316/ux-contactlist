@@ -32,28 +32,28 @@ export default function Contact({
   };
 
   return (
-    <div className="relative flex flex-row justify-between w-[720px] h-[64px] items-center group ">
+    <div className="relative flex flex-col custom:flex-row  justify-between w-full h-auto  group">
       <div className="flex flex-row gap-[16px]">
         <ImageIcon
           imageUrl={imageUrl}
-          className="w-10 h-10  rounded-full border border-[#282828]"
+          className="w-[2.5rem] h-[2.5rem] rounded-full border border-[#282828]"
         />
         <NameNumber name={name} phone={phone} />
       </div>
-      <div className="flex flex-row gap-[8px] relative opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="flex flex-row mobile:flex-row mobile:justify-end gap-[8px] relative opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <ImageIcon
           imageUrl="/icons/Mute.svg"
-          className="cursor-pointer"
+          className="cursor-pointer mobile:h-[1rem]"
           alt="Mute"
         />
         <ImageIcon
           imageUrl="/icons/Call.svg"
-          className="cursor-pointer"
+          className="cursor-pointer mobile:h-[1rem]"
           alt="Call"
         />
         <ImageIcon
           imageUrl="/icons/More.svg"
-          className="cursor-pointer"
+          className="cursor-pointer mobile:h-[1rem]"
           alt="Settings"
           onClick={() => {
             setVisibleDropDown(!visibleDropDown);
@@ -67,7 +67,7 @@ export default function Contact({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute top-full right-[-200px] z-20 bg-G-80 h-[132px] w-[219px] rounded-[8px]"
+            className="absolute top-full right-[-200px] z-20 bg-G-80 h-[132px] w-[219px] mobile:w-[35px] mobile:right-[-18px] rounded-[8px]"
           >
             <Dropdown
               values={["Edit", "Favourite", "Remove"]}

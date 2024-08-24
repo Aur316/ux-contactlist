@@ -116,7 +116,7 @@ export default function AddContactForm() {
   }
 
   return (
-    <div className="bg-G-100 rounded-lg p-[24px] w-[364px] h-[540px] p-[48px]">
+    <div className="flex flex-col justify-between relative bg-G-100 rounded-lg p-[24px] w-[364px] mobile: w-[354px] h-[540px] ">
       <div className="w-[316px] h-[404px] flex flex-col gap-6">
         <div>
           <h2 className="text-primary text-[24px] mb-4 font-glysa font-medium leading-[40px]">
@@ -209,14 +209,26 @@ export default function AddContactForm() {
         />
         <Button
           className={`rounded-[8px] text-primary bg-G-60 font-lexend w-[68px] pt-[8px] pr-[16px] pb-[8px] pl-[16px] ${
-            !name || !phone || !email || phone.length < 7 || name.length < 3
+            !name ||
+            !phone ||
+            !email ||
+            phone.length < 7 ||
+            name.length < 3 ||
+            phone.length > 15
               ? "cursor-not-allowed"
               : ""
           }`}
           text="text"
           value="Done"
           onClick={addNewContact}
-          disabled={!name || !phone || !email}
+          disabled={
+            !name ||
+            !phone ||
+            !email ||
+            phone.length < 7 ||
+            name.length < 3 ||
+            phone.length > 15
+          }
         />
       </div>
     </div>

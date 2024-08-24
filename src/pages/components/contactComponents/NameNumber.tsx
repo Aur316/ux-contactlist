@@ -12,7 +12,14 @@ export default function NameNumber({ name, phone }: NameNumberProps) {
     <div className="h-10 flex flex-col">
       <span
         id="contactName"
-        className="font-normal text-base leading-6 tracking-wide text-primary font-lexend"
+        className="font-normal text-base leading-6 tracking-wide text-primary font-lexend overflow-hidden"
+        style={{
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: 1,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
       >
         {name}
       </span>

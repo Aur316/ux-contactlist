@@ -43,12 +43,12 @@ export default function Home() {
   return (
     <div
       id="contactList"
-      className="bg-G-100 text-primary flex flex-col min-h-screen overflow-hidden"
+      className="bg-G-100 text-primary flex flex-col min-h-screen overflow-y-scroll "
     >
       <Nav />
-      <div className="flex-1 flex flex-col items-center justify-start border-r border-l border-disabled w-[766px] mx-auto px-[22px]">
+      <div className=" pt-[20px] flex-1 flex flex-col items-center justify-start border-r border-l border-disabled w-[63%] max-w-[766px] mx-auto px-[22px] gap-[20px]">
         {loading ? (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center ">
             <Loader />
           </div>
         ) : Array.isArray(contacts) && contacts.length > 0 ? (

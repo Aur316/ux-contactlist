@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Button(props: ButtonProps) {
   const baseStyles =
-    "flex justify-around h-[40px] items-center cursor-pointer transition-colors duration-200";
+    "flex justify-around h-[40px] items-center transition-colors duration-200";
 
   return (
     <button
@@ -13,7 +13,12 @@ export default function Button(props: ButtonProps) {
     >
       {props.text !== "text" && <img src={props.icon} alt="icon" />}
       {props.text !== "icon" && (
-        <span className="font-normal text-sm leading-[17.5px] font-lexend text-primary">
+        <span
+          className={`font-normal text-sm leading-[17.5px] font-lexend ${
+            props.disabled ? "text-disabled" : "text-primary"
+          }`}
+        >
+          {" "}
           {props.value}
         </span>
       )}

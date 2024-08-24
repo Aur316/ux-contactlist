@@ -29,7 +29,7 @@ export default function Dropdown({
   }, [setVisibleDropDown]);
 
   return (
-    <div ref={dropdownRef} className={className}>
+    <div id="dropdown" ref={dropdownRef} className={className}>
       {Array.isArray(values) && values.length > 0 ? (
         values.map((value, index) => (
           <div
@@ -43,13 +43,17 @@ export default function Dropdown({
               }
               setVisibleDropDown(false);
             }}
-            className={`hover:bg-G-70 hover:cursor-pointer ${
+            className={`hover:bg-G-70 hover:cursor-pointer  ${
               index === 0 ? "rounded-t-lg" : ""
             } ${index === values.length - 1 ? "rounded-b-lg" : ""}`}
           >
-            <div className="flex flex-row gap-[12px] h-[44px] items-center pt-[12px] pr-[10px] pb-[12px] pl-[10px]">
-              <img src={`/icons/${value}.svg`} alt={value} />
-              <p>{value}</p>
+            <div className="flex flex-row gap-[12px] h-[44px] items-center pt-[12px] pr-[10px] pb-[12px] pl-[10px] ">
+              <img
+                src={`/icons/${value}.svg`}
+                alt={value}
+                className="mobile:h-[1rem]"
+              />
+              <p className="mobile:hidden">{value}</p>
             </div>
           </div>
         ))
